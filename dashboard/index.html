@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — radar-3: a size curve priced off the snapshot's own live tokens</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-top">
+    <div>
+      <h1>TOKEN RADAR</h1>
+      <p class="tagline">What would a protocol's token be worth, if its record stayed as it is?</p>
+    </div>
+    <div class="masthead-meta">
+      <div><span class="k">Snapshot</span> <span id="asOf">—</span></div>
+      <div><span class="k">Model</span> radar-3 · size curve</div>
+      <div><span class="k">Source</span> DefiLlama protocols</div>
+    </div>
+  </div>
+  <div class="kpis" id="kpis"></div>
+  <nav class="tabs" id="tabs">
+    <button data-tab="board" class="active">Board</button>
+    <button data-tab="live">Live tokens</button>
+    <button data-tab="model">Model &amp; backtest</button>
+  </nav>
+</header>
+
+<main>
+  <section id="tab-board" class="tab active">
+    <div class="controls">
+      <input id="q" type="search" placeholder="Search a protocol…" aria-label="Search">
+      <select id="cat" aria-label="Category"><option value="">All categories</option></select>
+      <select id="chain" aria-label="Chain"><option value="">All chains</option></select>
+      <label class="check"><input id="wl" type="checkbox"> Watchlist only</label>
+      <label class="min-tvl">Min TVL $<input id="minTvl" type="number" min="0" step="1000000" placeholder="0"></label>
+      <select id="sort" aria-label="Sort">
+        <option value="implied">Sort: implied value</option>
+        <option value="tvl">Sort: TVL</option>
+        <option value="growth">Sort: 7-day growth</option>
+        <option value="age">Sort: age</option>
+        <option value="name">Sort: name</option>
+      </select>
+    </div>
+    <p class="count" id="count"></p>
+    <table class="board">
+      <thead><tr>
+        <th>#</th><th>Protocol</th><th>Category</th><th>Chains</th>
+        <th class="num">TVL</th><th class="num">7d</th><th class="num">Age</th>
+        <th class="num">Implied value</th><th class="num">Range</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="note">Implied value is the entry's own claim, never make.fun's. A protocol "records no
+    token" when its DefiLlama record carries none — that is not proof it has none, and nothing here
+    predicts whether or when a token is issued. Farming is speculative; no airdrop is promised.</p>
+  </section>
+
+  <section id="tab-live" class="tab">
+    <h2>Live tokens — the market's own values</h2>
+    <p>These protocols already trade. They are the comparables the size curve is fitted on, shown
+    here at their market caps — never mixed into the ranked board.</p>
+    <table class="board">
+      <thead><tr><th>Protocol</th><th>Category</th><th>Chains</th>
+      <th class="num">TVL</th><th class="num">Market cap</th><th class="num">Multiple</th><th class="num">7d</th></tr></thead>
+      <tbody id="liveRows"></tbody>
+    </table>
+  </section>
+
+  <section id="tab-model" class="tab">
+    <h2>Model &amp; backtest — radar-3</h2>
+    <div id="modelBody"></div>
+  </section>
+</main>
+
+<dialog id="detail" class="detail">
+  <div id="detailBody"></div>
+  <form method="dialog"><button class="close">Close</button></form>
+</dialog>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
